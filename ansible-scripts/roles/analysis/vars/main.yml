@@ -1,0 +1,7 @@
+---
+# vars file for analysis
+parent_dir: /street-signal/
+#code_dir: /street-signal/code/
+test_images: /street-signal/test_data/images/
+classifier_dir: /street-signal/classifier/
+output_dir: /street-signal/output
