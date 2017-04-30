@@ -38,11 +38,11 @@ flake8
 version = readfile("VERSION")[0].strip()
 readme = readfile('README.rst')
 
-NAME = "extstreet"
-DESCRIPTION = "A command called findimage for the cloudmesh shell"
+NAME = "cloudmesh.extstreet"
+DESCRIPTION = "A command called street and foo for the cloudmesh shell"
 AUTHOR = "Gregor von Laszewski"
 AUTHOR_EMAIL = "laszewski@gmail.com"
-URL = "https://github.com/cloudmesh/extstreet"
+URL = "https://github.com/cloudmesh/cloudmesh.street"
 LONG_DESCRIPTION = "\n".join(readme)
 
 
