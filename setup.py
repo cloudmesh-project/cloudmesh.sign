@@ -38,8 +38,8 @@ flake8
 version = readfile("VERSION")[0].strip()
 readme = readfile('README.rst')
 
-NAME = "cloudmesh.extstreet"
-DESCRIPTION = "A command called street and foo for the cloudmesh shell"
+NAME = "cloudmesh.sign"
+DESCRIPTION = "A command called sign the cloudmesh shell"
 AUTHOR = "Gregor von Laszewski"
 AUTHOR_EMAIL = "laszewski@gmail.com"
 URL = "https://github.com/cloudmesh/cloudmesh.street"

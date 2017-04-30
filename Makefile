@@ -1,4 +1,4 @@
-package=bar
+package=sign
 pyenv=ENV2
 UNAME=$(shell uname)
 export ROOT_DIR=${PWD}/cloudmesh/rest/server

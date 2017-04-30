@@ -1,14 +1,14 @@
 from __future__ import print_function
 #import cv2
 
-class Street(object):
+class Sign(object):
 
     def __init__(self):
         # not your location will not work easily / is not writeable
         self.classifier = '/street-signal/classifier/stopsign_classifier.xml'
         
     def hello(self, msg):
-        print ("Hello Street", msg)
+        print ("Hello Sign", msg)
 
     def detect(self, image):
         '''
