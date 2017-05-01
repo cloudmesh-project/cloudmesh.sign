@@ -80,10 +80,10 @@ class SignCommand(PluginCommand):
 
             return ""
 
-        elif arguments.hallo:
+        elif arguments.cp:
             
             sign = Sign()
-            output = sign.deploy(arguments.IMAGE)
+            output = sign.cp(arguments.IMAGE, arguments.SERVER)
             print (output)
 
             return ""

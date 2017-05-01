@@ -22,4 +22,6 @@ class Sign(object):
         '''
         return image  # remove once you fix the above
 
-        
+   def cp(self, image, server): 
+
+	return image 

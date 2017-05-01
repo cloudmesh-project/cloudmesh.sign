@@ -1,0 +1,9 @@
+[master]
+129.114.32.206 ansible_connection=ssh  ansible_user=cc 
+#127.0.0.1 ansible_connection=local   
+
+[remote]
+129.114.33.110 ansible_connection=ssh  ansible_user=cc 
+
+
+

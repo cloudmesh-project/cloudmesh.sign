@@ -1,0 +1,83 @@
+---
+# tasks file for suunni.cmd5
+     - name: update/upgrade machine
+       apt: update-cache=yes upgrade=dist
+
+     - name: install build_essentials       
+       apt: name={{item}} state=present update_cache=yes
+       with_items: '{{ python_packages }}'
+
+     - name: pip upgrade
+       command: pip install --upgrade pip
+
+     - name: install python-dependency packages       
+       action: pip name={{item}} state=present
+       with_items: '{{ pip_packages }}'
+
+     - name: Check if cloudmesh directory already exists       
+       stat: path={{ cm_path }}
+       register: cloudmesh_flag
+
+     - name: Install cloudmesh_client       
+       pip: name=cloudmesh_client state=latest
+       when: cloudmesh_flag.stat.exists == false
+
+     - name: create cloudmesh.yaml configuration file      
+       command: cm setup
+       when: cloudmesh_flag.stat.exists == false
+
+     - name: cm reset for upgrading cloudmesh_client
+       command: cm reset
+       when: cloudmesh_flag.stat.exists == true
+
+     - name: Uninstall cloudmesh_client  for re-install      
+       pip: name=cloudmesh_client state=absent
+       when: cloudmesh_flag.stat.exists == true
+
+     - name: install latest version of cloudmesh_client
+       pip: name=cloudmesh_client state=latest
+       when: cloudmesh_flag.stat.exists == true
+
+     - name: ssh key_check check for future authentication requirement      
+       stat: path={{ vm_home }}{{ key_path }}
+       register: ssh_key_pub_flag
+
+     - name:  create new ssh key if previously doesn't exist       
+       shell: ssh-keygen -b 2048 -t rsa -f {{ vm_home }}{{ rsa_pub_path }} -q -N ""
+       args:
+          creates: "{{ vm_home }}{{rsa_pub_path}}"
+       when: ssh_key_pub_flag.stat.exists == false
+
+
+     - name: cm key add
+       command: cm key add --ssh
+       when: cloudmesh_flag.stat.exists == true
+
+
+     - name: get cloudmesh.cmd5 package source
+       git:
+       repo: "{{ cmd5repository }}"
+       dest: "{{ tmp }}"
+
+     - name: build and install dependencies of cloudmesh.cmd5
+       become: yes
+       command: chdir="{{ tmp }}" "{{ item }}"
+       with_items:
+          - make source
+    
+     - name: cleanup tmp dir 
+       become: yes
+       file:
+         state: absent
+         path:"{{ tmp }}"
+ 
+     - name: get cloudmesh.sign package source
+       git:
+       repo: "{{ signrepository }}"
+       dest: "{{ tmp }}"
+
+     - name: build and install dependencies of cloudmesh.sign
+       become: yes
+       command: chdir="{{ tmp }}" "{{ item }}"
+       with_items:
+          - make source
