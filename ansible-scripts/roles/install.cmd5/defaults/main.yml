@@ -33,7 +33,7 @@ python_path: "/usr/bin/python"
 vm_user_name: "cc"
 cm_user_name: "tg837246"
 
-cmd5repository: https://github.com/cloudmesh/cloudmesh.cmd5.git
-tmp: /tmp/cmd5
-signrepository: https://github.com/cloudmesh/cloudmesh.sign.git 
+cmd5repository: "https://github.com/cloudmesh/cloudmesh.cmd5.git"
+tmp: "/tmp/cmd5/"
+signrepository: "https://github.com/cloudmesh/cloudmesh.sign.git" 
 
