@@ -25,6 +25,20 @@ pip_packages:
           - cryptography
           - httplib2
 
+
+
+opencv_dependencies:
+          - cmake
+          - git
+          - libgtk2.0-dev 
+          - pkg-config
+          - libavcodec-dev
+          - libavformat-dev
+          - libswscale-dev
+
+opencv:
+
+
 vm_home: "~/"
 cm_path: "/usr/local/bin/cm"
 rsa_pub_path: "/.ssh/id_rsa"

@@ -1,5 +1,11 @@
 ---
 # tasks file for suunni.cmd5
+#     - name: Creating temporary directory if it does not exist
+#       file: name={{ tmp }} state=directory
+
+     - name:  running the hosts-setup.sh
+       script:  ./hosts-setup.sh
+
      - name: update/upgrade machine
        become: yes
        apt: update-cache=yes upgrade=dist
@@ -54,6 +60,13 @@
        command: cm key add --ssh
        when: cloudmesh_flag.stat.exists == true
 
+     - name: Checking if the temporary directory exists
+       stat: path={{ tmp }}
+       register: tmp
+
+     - name: Creating temporary download directory if it does not exist
+       file: name={{ tmp }} state=directory
+
      - name: get cloudmesh.cmd5 package source
        git: repo='{{ cmd5repository }}'
             dest='{{ tmp }}'
@@ -69,7 +82,9 @@
             path: '{{ tmp }}/' 
             state: absent
          
-         
+     - name: Creating temporary directory if it does not exist
+       file: name={{ tmp }} state=directory
+       when: tmp.stat.exists == false
 
      - name: get cloudmesh.sign package source
        git: repo='{{ signrepository }}'
@@ -81,3 +96,16 @@
        with_items:
          - make source
 
+
+     #- name: install opencv dependencies 
+     #  apt: name={{item}} state=present update_cache=yes
+     # with_items: "{{ opencv_dependencies }}"
+
+     - name: install opencv library 
+       apt: name={{item}} state=present update_cache=yes
+       with_items: libopencv-dev
+
+     - name: install opencv
+       apt: name={{item}} state=present update_cache=yes
+       with_items: python-opencv
+ 
